@@ -9,23 +9,23 @@ public class DraggableObject : MonoBehaviour,  IBeginDragHandler, IDragHandler, 
 
     // Start is called before the first frame update
     void Start() {
-		baseImage = this.gameObject.GetComponent<Image>();
+		baseImage = gameObject.GetComponent<Image>();
     }
 
 	// Drag Event Handlers
-	public void OnBeginDrag(PointerEventData eventData) {
-		parentAfterDrag = this.transform.parent;
-		this.transform.SetParent(this.transform.root);
+	public virtual void OnBeginDrag(PointerEventData eventData) {
+		parentAfterDrag = transform.parent;
+		transform.SetParent(transform.root);
 		// Moves the object to the bottom of the heirarchy which will render it on top of everything else.
-		this.transform.SetAsLastSibling();
+		transform.SetAsLastSibling();
 		baseImage.raycastTarget = false;
 	}
 
 	public void OnDrag(PointerEventData eventData) {
-		this.transform.position = Input.mousePosition;
+		transform.position = Input.mousePosition;
 	}
 
-	public void OnEndDrag(PointerEventData eventData) {
+	public virtual void OnEndDrag(PointerEventData eventData) {
 		transform.SetParent(parentAfterDrag);
 		baseImage.raycastTarget = true;
 	}

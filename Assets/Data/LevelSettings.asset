@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1223ba3d2095f0e4fb6a5c964dc44877, type: 3}
   m_Name: LevelSettings
   m_EditorClassIdentifier: 
+  startingCardSlots: 8
+  startingHand: 4
   startingResources:
     _serializedList:
     - Key: 0

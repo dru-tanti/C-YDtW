@@ -3,6 +3,10 @@ using UnityEngine;
 using AYellowpaper.SerializedCollections;
 [CreateAssetMenu(fileName = "LevelSettings", menuName = "C!YDyW/Level Settings", order = 0)]
 public class LevelSettings : ScriptableObject {
+	[Tooltip("How many card slots will be available in game.")]
+	public int startingCardSlots;
+	[Tooltip("How many cards will the player start with.")]
+	public int startingHand;
 	[Header("Resources")]
 	// public Resource[] resources;
 	[SerializedDictionary("Resource Type", "Value")]
