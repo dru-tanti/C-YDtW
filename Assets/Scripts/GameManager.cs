@@ -54,9 +54,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void InitPlayArea() {
-		// for (int i = 0; i < currentLevelSettings.startingCardSlots; i++) {
-		// 	Instantiate(cardSlotPrefab, inPlayArea.transform);
-		// }
+		for (int i = 0; i < currentLevelSettings.startingCardSlots; i++) {
+			// Create a Card Slot Object and subscribe to it's cardPlayed Event.
+			GameObject cardSlotObject = Instantiate(cardSlotPrefab, inPlayArea.transform);
+			CardSlot cardSlot = cardSlotObject.GetComponent<CardSlot>();
+			cardSlot.OnCardPlayed += CardPlayed;
+		}
 		inPlay = inPlayArea.GetComponentsInChildren<Card>().ToList();
 	}
 
