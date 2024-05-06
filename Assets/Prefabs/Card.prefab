@@ -247,8 +247,8 @@ MonoBehaviour:
   baseImage: {fileID: 0}
   parentAfterDrag: {fileID: 0}
   cardData: {fileID: 11400000, guid: efa26f85345dfd9449a8169fcaeed2d8, type: 2}
-  cardImage: {fileID: 0}
-  description: {fileID: 0}
+  cardImage: {fileID: 6074594887265053291}
+  description: {fileID: 8044379118386193215}
   costSlot: {fileID: 6509740350165496070}
   productionSlot: {fileID: 460334284263549888}
   resourcePrefab:
@@ -261,10 +261,6 @@ MonoBehaviour:
       Value: {fileID: 5174518813624320577, guid: 47dd9ec30e8ec9c469ede23f0df2f5e2, type: 3}
     - Key: 3
       Value: {fileID: 1027417742910596352, guid: b1cfa2686f30dc54fa8371c63d4a9a92, type: 3}
-  cost:
-    _serializedList: []
-  production:
-    _serializedList: []
 --- !u!1 &8889016927299996931
 GameObject:
   m_ObjectHideFlags: 0

@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour {
 		GameObject newCardObject = Instantiate(cardPrefab);
 		Card newCard = newCardObject.GetComponent<Card>();
 		newCard.InitCardData(cardToPlay);
+		newCard.OnCardPickup += CardPickup;
 		// Attach the card to the player hand.
 		newCardObject.transform.SetParent(playerHandArea.transform);
 		inHand.Add(newCard);
@@ -58,16 +59,14 @@ public class GameManager : MonoBehaviour {
 			// Create a Card Slot Object and subscribe to it's cardPlayed Event.
 			GameObject cardSlotObject = Instantiate(cardSlotPrefab, inPlayArea.transform);
 			CardSlot cardSlot = cardSlotObject.GetComponent<CardSlot>();
-			cardSlot.OnCardPlayed += CardPlayed;
+			cardSlot.OnCardDropped += CardDropped;
 		}
-		inPlay = inPlayArea.GetComponentsInChildren<Card>().ToList();
 	}
 
 	public void InitPlayerHand() {
 		for (int i = 0; i < currentLevelSettings.startingHand; i++) {
 			DrawCard();
 		}
-		inHand = playerHandArea.GetComponentsInChildren<Card>().ToList();
 	}
 
 	public void EndPlayerTurn() {
@@ -83,13 +82,38 @@ public class GameManager : MonoBehaviour {
 		gameState.isPlayerTurn = true;
 	}
 
+	// If the card has been successfully played.
 	public void CardPlayed(Card card) {
-		inHand.Remove(card);
-		inPlay.Add(card);
-		gameState.doomMeter++;
+		// Go through card resources.
 		foreach(Resource cost in card.cardData.cost) {
 			gameState.resources[cost.type] -= cost.value;
 		}
+		inHand.Remove(card);
+		inPlay.Add(card);
+		gameState.doomMeter++;
  		updateUI.Invoke();
+	}
+
+	// Executed whenever a Card Slot tells the manager that a card has been dropped.
+	public void CardDropped(Card card) {
+		if(card.IsPlayable) {
+			CardPlayed(card);
+		} else {
+			
+		}
+	}
+
+	public void CardPickup(Card card) {
+		// Check if the card is allowed to be played.
+		card.IsPlayable = IsCardPlayable(card);
+	}
+
+	public bool IsCardPlayable(Card card) {
+		foreach(Resource cost in card.cardData.cost) {
+			if(gameState.resources[cost.type] - cost.value < 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
