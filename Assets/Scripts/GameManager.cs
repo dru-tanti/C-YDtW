@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour {
 		inPlay.Add(card);
 		gameState.doomMeter++;
  		updateUI.Invoke();
+		card.IsPlayable = IsCardPlayable(card);
 	}
 
 	// Executed whenever a Card Slot tells the manager that a card has been dropped.

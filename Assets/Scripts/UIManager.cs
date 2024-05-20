@@ -7,7 +7,7 @@ using AYellowpaper.SerializedCollections;
 [System.Serializable]
 public class Tooltip {
 	public string header;
-	[TextAreaAttribute]
+	[TextArea]
 	public string body;
 }
 

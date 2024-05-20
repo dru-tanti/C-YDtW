@@ -11,7 +11,6 @@ public class Card : DraggableObject {
 
 	[SerializedDictionary("Resource", "Prefab")]
 	public SerializedDictionary<ResourceType, GameObject> resourcePrefab;
-	private bool isPlayable;
 	public bool IsPlayable { get; set; } // Set by the Game Manager on card pickup.
 
 	[Header("UI Elements")]
@@ -44,6 +43,7 @@ public class Card : DraggableObject {
 
 	public override void OnBeginDrag(PointerEventData eventData) {
 		base.OnBeginDrag(eventData);
+		// Inform the GameManager that a card has been picked up by the player.
 		OnCardPickup.Invoke(this);
 		description.raycastTarget = false;
 	}
