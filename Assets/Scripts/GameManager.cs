@@ -18,16 +18,19 @@ public class GameManager : MonoBehaviour {
 
 	[Header("Card Details")]
 	public CardData[] available;
+	public List<CardData> inDeck;
 
-	[Header("Card Management")]
-	public GameObject inPlayArea;
+	[Header("Prefab Management")]
+	public GameObject cardPrefab;
 	public GameObject cardSlotPrefab;
 	public GameObject playerHandArea;
-	public GameObject cardPrefab;
+	public GameObject inPlayArea;
+	public GameObject climateEffectArea;
 
-	public List<CardData> inDeck;
+	[Header("Card Management")]
 	public List<Card> inHand;
 	public List<Card> inPlay;
+	public List<Card> climateEffects;
 
 	public void Start() {
 		currentLevelSettings = levelSettings[gameState.currentLevel-1];
@@ -55,11 +58,19 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void InitPlayArea() {
-		for (int i = 0; i < currentLevelSettings.startingCardSlots; i++) {
+		for (int i = 0; i < currentLevelSettings.maxCardSlots; i++) {
 			// Create a Card Slot Object and subscribe to it's cardPlayed Event.
 			GameObject cardSlotObject = Instantiate(cardSlotPrefab, inPlayArea.transform);
 			CardSlot cardSlot = cardSlotObject.GetComponent<CardSlot>();
 			cardSlot.OnCardDropped += CardDropped;
+		}
+
+		for (int i = 0; i < currentLevelSettings.maxClimateEffects; i++) {
+			// Create a Card Slot Object and subscribe to it's cardPlayed Event.
+			GameObject cardSlotObject = Instantiate(cardSlotPrefab, climateEffectArea.transform);
+			CardSlot cardSlot = cardSlotObject.GetComponent<CardSlot>();
+			cardSlot.ClimateSlot = true;
+			// cardSlot.OnCardDropped += CardDropped;
 		}
 	}
 
@@ -82,31 +93,31 @@ public class GameManager : MonoBehaviour {
 		gameState.isPlayerTurn = true;
 	}
 
-	// If the card has been successfully played.
-	public void CardPlayed(Card card) {
-		// Go through card resources.
-		foreach(Resource cost in card.cardData.cost) {
-			gameState.resources[cost.type] -= cost.value;
-		}
-		inHand.Remove(card);
-		inPlay.Add(card);
-		gameState.doomMeter++;
- 		updateUI.Invoke();
-		card.IsPlayable = IsCardPlayable(card);
-	}
-
-	// Executed whenever a Card Slot tells the manager that a card has been dropped.
-	public void CardDropped(Card card) {
-		if(card.IsPlayable) {
-			CardPlayed(card);
-		} else {
-			
-		}
-	}
-
+	// Executed whenever a Card is picked up by the player.
 	public void CardPickup(Card card) {
 		// Check if the card is allowed to be played.
 		card.IsPlayable = IsCardPlayable(card);
+	}
+
+	// Executed whenever a Card is dropped on a CardSlot by the player.
+	public void CardDropped(Card card) {
+		if(card.IsPlayable) {
+			// Reduces the card cost from the players resources.
+			foreach(Resource cost in card.cardData.cost) {
+				gameState.resources[cost.type] -= cost.value;
+			}
+
+			// Update Game State.
+			inHand.Remove(card);
+			inPlay.Add(card);
+			gameState.doomMeter++;
+
+			updateUI.Invoke();
+		}
+	}
+
+	public void TriggerClimateAction(ClimateAction climateAction) {
+
 	}
 
 	public bool IsCardPlayable(Card card) {

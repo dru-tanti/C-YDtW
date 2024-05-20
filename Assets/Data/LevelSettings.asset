@@ -17,13 +17,13 @@ MonoBehaviour:
   startingResources:
     _serializedList:
     - Key: 0
-      Value: 0
+      Value: 10
     - Key: 1
-      Value: 0
+      Value: 10
     - Key: 2
-      Value: 0
+      Value: 10
     - Key: 3
-      Value: 0
+      Value: 10
   targetResources:
     _serializedList:
     - Key: 0

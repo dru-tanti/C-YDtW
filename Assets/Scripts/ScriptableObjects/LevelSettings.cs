@@ -4,7 +4,9 @@ using AYellowpaper.SerializedCollections;
 [CreateAssetMenu(fileName = "LevelSettings", menuName = "C!YDyW/Level Settings", order = 0)]
 public class LevelSettings : ScriptableObject {
 	[Tooltip("How many card slots will be available in game.")]
-	public int startingCardSlots;
+	public int maxCardSlots = 12;
+	[Tooltip("How many card slots will be available for climate effects in game.")]
+	public int maxClimateEffects = 6;
 	[Tooltip("How many cards will the player start with.")]
 	public int startingHand;
 	[Header("Resources")]
