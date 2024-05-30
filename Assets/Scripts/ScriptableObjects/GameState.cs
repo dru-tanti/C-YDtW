@@ -12,7 +12,6 @@ public class GameState : ScriptableObject {
 	public int doomMeter = 0;
 
 	public void ResetLevel() {
-		currentLevel = 1;
 		turnCounter = 1;
 		doomMeter = 0;
 	}

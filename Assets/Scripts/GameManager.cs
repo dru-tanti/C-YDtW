@@ -32,12 +32,17 @@ public class GameManager : MonoBehaviour {
 	public List<Card> inPlay;
 	public List<ClimateCard> climateCards;
 
+	[Header("Debugging")]
+	public bool debugEnabled;
+	public GameObject debugTools;
+
 	public void Start() {
 		currentLevelSettings = levelSettings[gameState.currentLevel-1];
 
 		// Reset for testing purposes.
 		if(resetLevel) gameState.ResetLevel();
 		if(resetResources) gameState.ResetResources(currentLevelSettings.startingResources);
+		debugTools.SetActive(debugEnabled);
 
 		InitPlayArea();
 		InitPlayerHand();
@@ -48,8 +53,8 @@ public class GameManager : MonoBehaviour {
 		// Get a random card from the available cards.
 		ResourceCardData cardToPlay = inDeck[Random.Range(0, inDeck.Count())];
 		GameObject newCardObject = Instantiate(cardPrefab);
-		Card newCard = newCardObject.GetComponent<Card>();
 		// Set the card data, and subscribe to the OnCardPickup event.
+		Card newCard = newCardObject.GetComponent<Card>();
 		newCard.InitCardData(cardToPlay);
 		newCard.OnCardPickup += CardPickup;
 		// Attach the card to the player hand.
@@ -139,5 +144,40 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		return true;
+	}
+
+	//----------------------------------------------------
+	// DEBUGGING METHODS
+	//----------------------------------------------------
+	public void ResetLevelData() {
+		gameState.turnCounter = 1;
+		gameState.doomMeter = 0;
+	}
+
+	public void ResetResources() {
+		foreach(ResourceType type in currentLevelSettings.startingResources.Keys) {
+			gameState.resources[type] = currentLevelSettings.startingResources[type];
+		}
+		updateUI.Invoke();
+	}
+
+	// Destroys all cards in play and resets the cards in the players hands.
+	public void ResetPlayerHand() {
+		inHand.ForEach((card) => Destroy(card.gameObject));
+		inHand.Clear();
+		InitPlayerHand();
+	}
+
+	public void IncreaseDoomMeter() {
+		gameState.doomMeter++;
+		updateUI.Invoke();
+	}
+
+	public void TriggerWinState() {
+
+	}
+
+	public void TriggerLoseState() {
+		
 	}
 }
