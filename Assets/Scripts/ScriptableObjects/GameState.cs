@@ -11,9 +11,15 @@ public class GameState : ScriptableObject {
 	public int turnCounter = 1;
 	public int doomMeter = 0;
 
-	public void Reset() {
+	public void ResetLevel() {
 		currentLevel = 1;
 		turnCounter = 1;
 		doomMeter = 0;
+	}
+
+	public void ResetResources(SerializedDictionary<ResourceType, int> startingResources) {
+		foreach(ResourceType type in startingResources.Keys) {
+			resources[type] = startingResources[type];
+		}
 	}
 }

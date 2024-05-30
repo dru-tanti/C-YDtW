@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
 	private LevelSettings currentLevelSettings;
 
 	[Header("Debug Options")]
-	public bool resetGameState = true;
+	public bool resetLevel = true;
 	public bool resetResources = true;
 
 	[Header("Events")]
@@ -30,16 +30,15 @@ public class GameManager : MonoBehaviour {
 	[Header("Card Management")]
 	public List<Card> inHand;
 	public List<Card> inPlay;
-	public List<Card> climateEffects;
+	public List<ClimateEffect> climateEffects;
 
 	public void Start() {
 		currentLevelSettings = levelSettings[gameState.currentLevel-1];
-		if(resetResources) {
-			foreach(ResourceType type in currentLevelSettings.startingResources.Keys) {
-				gameState.resources[type] = currentLevelSettings.startingResources[type];
-			}
-		}
-		if(resetGameState) gameState.Reset();
+
+		// Reset for testing purposes.
+		if(resetLevel) gameState.ResetLevel();
+		if(resetResources) gameState.ResetResources(currentLevelSettings.startingResources);
+
 		InitPlayArea();
 		InitPlayerHand();
  		updateUI.Invoke();
@@ -50,6 +49,7 @@ public class GameManager : MonoBehaviour {
 		CardData cardToPlay = inDeck[Random.Range(0, inDeck.Count())];
 		GameObject newCardObject = Instantiate(cardPrefab);
 		Card newCard = newCardObject.GetComponent<Card>();
+		// Set the card data, and subscribe to the OnCardPickup event.
 		newCard.InitCardData(cardToPlay);
 		newCard.OnCardPickup += CardPickup;
 		// Attach the card to the player hand.
@@ -70,7 +70,6 @@ public class GameManager : MonoBehaviour {
 			GameObject cardSlotObject = Instantiate(cardSlotPrefab, climateEffectArea.transform);
 			CardSlot cardSlot = cardSlotObject.GetComponent<CardSlot>();
 			cardSlot.ClimateSlot = true;
-			// cardSlot.OnCardDropped += CardDropped;
 		}
 	}
 
@@ -93,13 +92,13 @@ public class GameManager : MonoBehaviour {
 		gameState.isPlayerTurn = true;
 	}
 
-	// Executed whenever a Card is picked up by the player.
+	// Invoked whenever a Card is picked up by the player.
 	public void CardPickup(Card card) {
 		// Check if the card is allowed to be played.
 		card.IsPlayable = IsCardPlayable(card);
 	}
 
-	// Executed whenever a Card is dropped on a CardSlot by the player.
+	// Invoked whenever a Card is dropped on a CardSlot by the player.
 	public void CardDropped(Card card) {
 		if(card.IsPlayable) {
 			// Reduces the card cost from the players resources.
@@ -116,8 +115,10 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public void TriggerClimateAction(ClimateAction climateAction) {
-
+	public void TriggerClimateAction(ClimateEffect climateEffect) {
+		foreach(Resource cost in climateEffect.cost) {
+			gameState.resources[cost.type] -= cost.value;
+		}
 	}
 
 	public bool IsCardPlayable(Card card) {
