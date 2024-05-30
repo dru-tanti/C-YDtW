@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour {
 	public UnityEvent updateUI;
 
 	[Header("Card Details")]
-	public CardData[] available;
-	public List<CardData> inDeck;
+	public ResourceCardData[] available;
+	public List<ResourceCardData> inDeck;
 
 	[Header("Prefab Management")]
 	public GameObject cardPrefab;
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
 	[Header("Card Management")]
 	public List<Card> inHand;
 	public List<Card> inPlay;
-	public List<ClimateEffect> climateEffects;
+	public List<ClimateCard> climateCards;
 
 	public void Start() {
 		currentLevelSettings = levelSettings[gameState.currentLevel-1];
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
 
 	public void DrawCard() {
 		// Get a random card from the available cards.
-		CardData cardToPlay = inDeck[Random.Range(0, inDeck.Count())];
+		ResourceCardData cardToPlay = inDeck[Random.Range(0, inDeck.Count())];
 		GameObject newCardObject = Instantiate(cardPrefab);
 		Card newCard = newCardObject.GetComponent<Card>();
 		// Set the card data, and subscribe to the OnCardPickup event.
@@ -87,6 +87,11 @@ public class GameManager : MonoBehaviour {
 				gameState.resources[production.type] += production.value;
 			}
 		}
+
+		foreach(ClimateCard card in climateCards) {
+			card.TriggerClimateEffect();
+		}
+
 		DrawCard();
 		updateUI.Invoke();
 		gameState.isPlayerTurn = true;
@@ -115,8 +120,14 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public void TriggerClimateAction(ClimateEffect climateEffect) {
-		foreach(Resource cost in climateEffect.cost) {
+	public void TriggerClimateAction(ClimateCard climateCard) {
+		// If the climate card is still active.
+		if(climateCard.cardData.duration-- > 0) {
+
+		} else {
+			Destroy(climateCard.transform);
+		}
+		foreach(Resource cost in climateCard.cardData.cost) { 
 			gameState.resources[cost.type] -= cost.value;
 		}
 	}

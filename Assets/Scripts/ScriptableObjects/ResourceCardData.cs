@@ -8,7 +8,7 @@ public struct Resource {
 }
 
 [CreateAssetMenu(fileName = "Card", menuName = "C!YDyW/Card", order = 0)]
-public class CardData : ScriptableObject {
+public class ResourceCardData : ScriptableObject {
     public Sprite image;
     public string description;
     public Resource[] cost;

@@ -7,7 +7,7 @@ using AYellowpaper.SerializedCollections;
 using GlobalEnums;
 
 public class Card : DraggableObject {
-	public CardData cardData;
+	public ResourceCardData cardData;
 
 	[SerializedDictionary("Resource", "Prefab")]
 	public SerializedDictionary<ResourceType, GameObject> resourcePrefab;
@@ -20,7 +20,7 @@ public class Card : DraggableObject {
 	public GameObject productionSlot;
 	public event Action<Card> OnCardPickup;
 
-	public void InitCardData(CardData data) {
+	public void InitCardData(ResourceCardData data) {
 		cardData = data;
 
 		// Initialising the Card Cost.
