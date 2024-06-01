@@ -9,10 +9,6 @@ public class GameManager : MonoBehaviour {
 	public LevelSettings[] levelSettings;
 	private LevelSettings currentLevelSettings;
 
-	[Header("Debug Options")]
-	public bool resetLevel = true;
-	public bool resetResources = true;
-
 	[Header("Events")]
 	public UnityEvent updateUI;
 
@@ -38,15 +34,33 @@ public class GameManager : MonoBehaviour {
 
 	public void Start() {
 		currentLevelSettings = levelSettings[gameState.currentLevel-1];
+		gameState.ResetResources(currentLevelSettings.startingResources);
 
-		// Reset for testing purposes.
-		if(resetLevel) gameState.ResetLevel();
-		if(resetResources) gameState.ResetResources(currentLevelSettings.startingResources);
 		debugTools.SetActive(debugEnabled);
 
 		InitPlayArea();
 		InitPlayerHand();
  		updateUI.Invoke();
+	}
+	
+	// Invoked whenever a Card is dropped on a CardSlot by the player.
+	public void CardDropped(Card card) {
+		if(card.IsPlayable) {
+			gameState.DecreaseResources(card.cardData.cost);
+
+			// Update Game State.
+			inHand.Remove(card);
+			inPlay.Add(card);
+			gameState.doomMeter++;
+
+			updateUI.Invoke();
+		}
+	}
+
+	// Invoked whenever a Card is picked up by the player.
+	public void CardPickup(Card card) {
+		// Check if the card is allowed to be played.
+		card.IsPlayable = IsCardPlayable(card);
 	}
 
 	public void DrawCard() {
@@ -60,6 +74,17 @@ public class GameManager : MonoBehaviour {
 		// Attach the card to the player hand.
 		newCardObject.transform.SetParent(playerHandArea.transform);
 		inHand.Add(newCard);
+	}
+
+	public void EndPlayerTurn() {
+		gameState.isPlayerTurn = false;
+		// Handle the production of the cards that are in play.
+		inPlay.ForEach((card) => gameState.AddResources(card.cardData.production));
+		// climateCards.ForEach((card) => card.TriggerClimateEffect());
+
+		DrawCard();
+		updateUI.Invoke();
+		gameState.isPlayerTurn = true;
 	}
 
 	public void InitPlayArea() {
@@ -83,60 +108,7 @@ public class GameManager : MonoBehaviour {
 			DrawCard();
 		}
 	}
-
-	public void EndPlayerTurn() {
-		gameState.isPlayerTurn = false;
-		// Handle the production of the cards that are in play.
-		foreach(Card card in inPlay) {
-			foreach(Resource production in card.cardData.production) {
-				gameState.resources[production.type] += production.value;
-			}
-		}
-
-		foreach(ClimateCard card in climateCards) {
-			card.TriggerClimateEffect();
-		}
-
-		DrawCard();
-		updateUI.Invoke();
-		gameState.isPlayerTurn = true;
-	}
-
-	// Invoked whenever a Card is picked up by the player.
-	public void CardPickup(Card card) {
-		// Check if the card is allowed to be played.
-		card.IsPlayable = IsCardPlayable(card);
-	}
-
-	// Invoked whenever a Card is dropped on a CardSlot by the player.
-	public void CardDropped(Card card) {
-		if(card.IsPlayable) {
-			// Reduces the card cost from the players resources.
-			foreach(Resource cost in card.cardData.cost) {
-				gameState.resources[cost.type] -= cost.value;
-			}
-
-			// Update Game State.
-			inHand.Remove(card);
-			inPlay.Add(card);
-			gameState.doomMeter++;
-
-			updateUI.Invoke();
-		}
-	}
-
-	public void TriggerClimateAction(ClimateCard climateCard) {
-		// If the climate card is still active.
-		if(climateCard.cardData.duration-- > 0) {
-
-		} else {
-			Destroy(climateCard.transform);
-		}
-		foreach(Resource cost in climateCard.cardData.cost) { 
-			gameState.resources[cost.type] -= cost.value;
-		}
-	}
-
+	
 	public bool IsCardPlayable(Card card) {
 		foreach(Resource cost in card.cardData.cost) {
 			if(gameState.resources[cost.type] - cost.value < 0) {
@@ -144,6 +116,12 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		return true;
+	}
+
+	public void TriggerClimateAction(ClimateCard climateCard) {
+		gameState.DecreaseResources(climateCard.cardData.cost);
+		// Remove the card if it's no longer active.
+		if(--climateCard.cardData.duration <= 0) Destroy(climateCard.gameObject);
 	}
 
 	//----------------------------------------------------
@@ -155,9 +133,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void ResetResources() {
-		foreach(ResourceType type in currentLevelSettings.startingResources.Keys) {
-			gameState.resources[type] = currentLevelSettings.startingResources[type];
-		}
+		gameState.ResetResources(currentLevelSettings.startingResources);
 		updateUI.Invoke();
 	}
 

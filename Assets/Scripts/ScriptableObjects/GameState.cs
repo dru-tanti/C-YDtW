@@ -16,6 +16,18 @@ public class GameState : ScriptableObject {
 		doomMeter = 0;
 	}
 
+	public void AddResources(Resource[] resources) {
+		foreach(Resource resource in resources) {
+			this.resources[resource.type] += resource.value;
+		}
+	}
+
+	public void DecreaseResources(Resource[] resources) {
+		foreach(Resource resource in resources) {
+			this.resources[resource.type] -= resource.value;
+		}
+	}
+
 	public void ResetResources(SerializedDictionary<ResourceType, int> startingResources) {
 		foreach(ResourceType type in startingResources.Keys) {
 			resources[type] = startingResources[type];

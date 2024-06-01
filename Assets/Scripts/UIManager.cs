@@ -12,7 +12,7 @@ public class Tooltip {
 }
 
 public class UIManager : MonoBehaviour {
-	private static UIManager current; // Declares it as a Singleton.
+	private static UIManager current; // Declares it as a Singleton since we have a static function.
 	public GameState gameState;
 
 	[Header("Tooltip Management")]
@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour {
 		doomMeter.value = gameState.doomMeter;
 	}
 
-	public void SetText(string header="", string body="") {
+	public void SetTooltipText(string header="", string body="") {
 		if(string.IsNullOrEmpty(header)) {
 			tooltipHeader.gameObject.SetActive(false);
 		} else {
@@ -72,8 +72,11 @@ public class UIManager : MonoBehaviour {
 		float pivotY = position.y / Screen.width;
 		current.rectTransform.pivot = new Vector2(pivotX,pivotY);
 
+		string header = current.tooltipManager[trigger.tooltipName].header;
+		string body = current.tooltipManager[trigger.tooltipName].body;
+
 		// Set Text.
-		current.SetText(current.tooltipManager[trigger.tooltipName].header, current.tooltipManager[trigger.tooltipName].body);
+		current.SetTooltipText(header, body);
 		current.tooltipObject.SetActive(true);
 	}
 
