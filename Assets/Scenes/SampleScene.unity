@@ -1426,8 +1426,6 @@ MonoBehaviour:
   gameState: {fileID: 11400000, guid: 77717cf517910794f906be9ecdd98804, type: 2}
   levelSettings:
   - {fileID: 11400000, guid: e32c875dc762a8c46aa58a91fc39d9d2, type: 2}
-  resetLevel: 1
-  resetResources: 1
   updateUI:
     m_PersistentCalls:
       m_Calls:
@@ -1446,10 +1444,12 @@ MonoBehaviour:
   available:
   - {fileID: 11400000, guid: efa26f85345dfd9449a8169fcaeed2d8, type: 2}
   - {fileID: 11400000, guid: 3b6311a28f2fa404b948c068a4a751fc, type: 2}
-  inDeck:
+  resourceCardDeck:
   - {fileID: 11400000, guid: efa26f85345dfd9449a8169fcaeed2d8, type: 2}
   - {fileID: 11400000, guid: 3b6311a28f2fa404b948c068a4a751fc, type: 2}
-  cardPrefab: {fileID: 7590407638467041831, guid: f01027c157702314b89d07cddc2f2e5c, type: 3}
+  climateCardDeck: []
+  resourceCardPrefab: {fileID: 7590407638467041831, guid: f01027c157702314b89d07cddc2f2e5c, type: 3}
+  climateCardPrefab: {fileID: 0}
   cardSlotPrefab: {fileID: 2682840530415856996, guid: aaa60812f2fd1a246914573d3b7bd9c0, type: 3}
   playerHandArea: {fileID: 737179793}
   inPlayArea: {fileID: 810032318}

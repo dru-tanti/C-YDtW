@@ -163,9 +163,9 @@ GameObject:
   - component: {fileID: 624079665295872917}
   - component: {fileID: 8419083569961310009}
   - component: {fileID: 5827332709132809292}
-  - component: {fileID: 3695753739064728574}
+  - component: {fileID: 5066991150157795143}
   m_Layer: 5
-  m_Name: Card
+  m_Name: Resource Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3695753739064728574
+--- !u!114 &5066991150157795143
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -241,26 +241,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7590407638467041831}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 598a9618621467d40ba2b45ffe30f31c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e7982b092f043849859bcd0274df5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseImage: {fileID: 0}
+  baseImage: {fileID: 5827332709132809292}
   parentAfterDrag: {fileID: 0}
-  cardData: {fileID: 11400000, guid: efa26f85345dfd9449a8169fcaeed2d8, type: 2}
+  cardData: {fileID: 0}
+  resourceIcons: {fileID: 11400000, guid: 86b5f95809c56af45b2a2ac45a5720ec, type: 2}
   cardImage: {fileID: 6074594887265053291}
   description: {fileID: 8044379118386193215}
   costSlot: {fileID: 6509740350165496070}
   productionSlot: {fileID: 460334284263549888}
-  resourcePrefab:
-    _serializedList:
-    - Key: 0
-      Value: {fileID: 2544437612248346969, guid: 537321fe342f5e44b8bb8c488dea8be4, type: 3}
-    - Key: 1
-      Value: {fileID: 1501296092982466052, guid: d8fcc645577738c49bbb176b6e60fc3e, type: 3}
-    - Key: 2
-      Value: {fileID: 5174518813624320577, guid: 47dd9ec30e8ec9c469ede23f0df2f5e2, type: 3}
-    - Key: 3
-      Value: {fileID: 1027417742910596352, guid: b1cfa2686f30dc54fa8371c63d4a9a92, type: 3}
 --- !u!1 &8889016927299996931
 GameObject:
   m_ObjectHideFlags: 0
