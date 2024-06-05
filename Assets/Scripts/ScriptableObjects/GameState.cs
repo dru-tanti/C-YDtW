@@ -9,12 +9,8 @@ public class GameState : ScriptableObject {
 	public bool isPlayerTurn = true;
 	public int currentLevel = 1;
 	public int turnCounter = 1;
+	public int turnLimit = 10;
 	public int doomMeter = 0;
-
-	public void ResetLevel() {
-		turnCounter = 1;
-		doomMeter = 0;
-	}
 
 	public void AddResources(Resource[] resources) {
 		foreach(Resource resource in resources) {

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 
 	[Header("Events")]
 	public UnityEvent updateUI;
+	public UnityEvent<string> playSound;
 
 	[Header("ResourceCard Details")]
 	public ResourceCardData[] available;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour {
 
 		InitPlayArea();
 		InitPlayerHand();
+		ResetLevelData();
  		updateUI.Invoke();
 	}
 	
@@ -53,7 +55,7 @@ public class GameManager : MonoBehaviour {
 			// Update Game State.
 			inHand.Remove(card);
 			inPlay.Add(card);
-			gameState.doomMeter++;
+			gameState.doomMeter += card.cardData.damage;
 
 			updateUI.Invoke();
 		}
@@ -95,12 +97,16 @@ public class GameManager : MonoBehaviour {
 		// Handle the production of the cards that are in play.
 		inPlay.ForEach((card) => gameState.AddResources(card.cardData.production));
 
-		// Handle climate actions.
-		climateCards.ForEach((card) => TriggerClimateAction(card));
-		if(climateCards.Count() < currentLevelSettings.maxClimateEffects) {
-
+		/*
+			Iterate backwards through the list so that when a climate card expires,
+			we can safely remove it from the list without causeing problems with indexing.
+		*/
+		for (int i = climateCards.Count()-1; i >= 0; i--) {
+			TriggerClimateAction(climateCards[i]);
 		}
-
+		if(climateCards.Count() < currentLevelSettings.maxClimateEffects) {
+			DrawClimateCard();
+		}
 		DrawCard();
 		updateUI.Invoke();
 		gameState.isPlayerTurn = true;
@@ -112,13 +118,6 @@ public class GameManager : MonoBehaviour {
 			GameObject cardSlotObject = Instantiate(cardSlotPrefab, inPlayArea.transform);
 			CardSlot cardSlot = cardSlotObject.GetComponent<CardSlot>();
 			cardSlot.OnCardDropped += CardDropped;
-		}
-
-		for (int i = 0; i < currentLevelSettings.maxClimateEffects; i++) {
-			// Create a Card Slot Object and subscribe to it's cardPlayed Event.
-			GameObject cardSlotObject = Instantiate(cardSlotPrefab, climateEffectArea.transform);
-			CardSlot cardSlot = cardSlotObject.GetComponent<CardSlot>();
-			cardSlot.ClimateSlot = true;
 		}
 	}
 
@@ -140,7 +139,10 @@ public class GameManager : MonoBehaviour {
 	public void TriggerClimateAction(ClimateCard climateCard) {
 		gameState.DecreaseResources(climateCard.cardData.cost);
 		// Remove the card if it's no longer active.
-		if(--climateCard.cardData.duration <= 0) Destroy(climateCard.gameObject);
+		if(--climateCard.timer <= 0) {
+			climateCards.Remove(climateCard);
+			Destroy(climateCard.gameObject);
+		}
 	}
 
 	//----------------------------------------------------
@@ -148,7 +150,8 @@ public class GameManager : MonoBehaviour {
 	//----------------------------------------------------
 	public void ResetLevelData() {
 		gameState.turnCounter = 1;
-		gameState.doomMeter = 0;
+		gameState.doomMeter = currentLevelSettings.startingDoomMeter;
+		gameState.turnLimit = currentLevelSettings.turnLimit;
 	}
 
 	public void ResetResources() {

@@ -12,6 +12,7 @@ public class ClimateCard : MonoBehaviour
 	public TextMeshProUGUI description;
 	public GameObject costSlot;
 	public GameObject effectTimer;
+	public int timer;
 
 	public void InitCardData(ClimateCardData data) {
 		cardData = data;
@@ -22,7 +23,7 @@ public class ClimateCard : MonoBehaviour
 			resourceIcon.GetComponentInChildren<TextMeshProUGUI>().SetText(resource.value.ToString());
 			// resourceIcon.transform.SetParent(costSlot.transform);
 		}
-
+		timer = cardData.maxDuration;
 		cardImage.sprite = cardData.image;
 		description.SetText(cardData.description);
 	}

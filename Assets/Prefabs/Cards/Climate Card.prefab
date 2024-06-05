@@ -246,6 +246,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardData: {fileID: 0}
   resourceIcons: {fileID: 11400000, guid: 86b5f95809c56af45b2a2ac45a5720ec, type: 2}
+  cardImage: {fileID: 6074594887265053291}
+  description: {fileID: 8044379118386193215}
+  costSlot: {fileID: 6509740350165496070}
+  effectTimer: {fileID: 460334284263549888}
 --- !u!1 &8889016927299996931
 GameObject:
   m_ObjectHideFlags: 0

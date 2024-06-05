@@ -7,11 +7,6 @@ public class ClimateCardData : ScriptableObject {
     public Sprite image;
     public string description;
 	public Resource[] cost;
-	
-	// [Range(0f, 100f)]
-	public SerializedDictionary<ResourceType, int> icon;
-
-	public int duration;
-	public int maxDuration => duration;
+	public int maxDuration;
 	public int damage;
 }

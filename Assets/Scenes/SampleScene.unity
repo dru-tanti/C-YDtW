@@ -153,8 +153,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1102797156}
-  - {fileID: 737179794}
   - {fileID: 810032319}
+  - {fileID: 737179794}
   m_Father: {fileID: 1243420172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &50140214
@@ -1379,6 +1379,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltipName: Science Resource
+--- !u!1 &644569840
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 644569842}
+  - component: {fileID: 644569841}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &644569841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644569840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2c82fec880cfef4892277d3494cac66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds: []
+--- !u!4 &644569842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644569840}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 745.71906, y: 408.12985, z: -6.2279015}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &703560547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1441,15 +1486,32 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  playSound:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 644569841}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   available:
   - {fileID: 11400000, guid: efa26f85345dfd9449a8169fcaeed2d8, type: 2}
   - {fileID: 11400000, guid: 3b6311a28f2fa404b948c068a4a751fc, type: 2}
   resourceCardDeck:
   - {fileID: 11400000, guid: efa26f85345dfd9449a8169fcaeed2d8, type: 2}
   - {fileID: 11400000, guid: 3b6311a28f2fa404b948c068a4a751fc, type: 2}
-  climateCardDeck: []
+  climateCardDeck:
+  - {fileID: 11400000, guid: 94e3c1b931194c24997ba8a7238f0bb5, type: 2}
+  - {fileID: 11400000, guid: 6017595c24049904a9fb6ddd4ca40e7d, type: 2}
   resourceCardPrefab: {fileID: 7590407638467041831, guid: f01027c157702314b89d07cddc2f2e5c, type: 3}
-  climateCardPrefab: {fileID: 0}
+  climateCardPrefab: {fileID: 7590407638467041831, guid: de6218a53b941cb4e801213aafb7d753, type: 3}
   cardSlotPrefab: {fileID: 2682840530415856996, guid: aaa60812f2fd1a246914573d3b7bd9c0, type: 3}
   playerHandArea: {fileID: 737179793}
   inPlayArea: {fileID: 810032318}
@@ -2161,7 +2223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4745,6 +4807,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 2136232699}
   - {fileID: 1698146668}
+  - {fileID: 644569842}
   - {fileID: 703560548}
   - {fileID: 1924598413}
   - {fileID: 1091821190}

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36371e8daba2b8c4181232c3b1d345aa, type: 3}
-  m_Name: Climate Card
+  m_Name: Climate Card 1
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: 94aa6b967bd568c4898efc84f4753039, type: 3}
+  image: {fileID: 21300000, guid: 53ea2ab3703f69f46a7c35adc8ecdab6, type: 3}
   description: Climate
   cost:
   - value: 3
     type: 2
-  maxDuration: 2
+  maxDuration: 1
   damage: 2

@@ -3,12 +3,19 @@ using UnityEngine;
 using AYellowpaper.SerializedCollections;
 [CreateAssetMenu(fileName = "LevelSettings", menuName = "C!YDyW/Level Settings", order = 0)]
 public class LevelSettings : ScriptableObject {
+	[Header("Game State")]
+	public int startingDoomMeter = 0;
+	public int startingClimateCard = 0;
+	public int turnLimit = 10;
+
+	[Header("Card Settings")]
 	[Tooltip("How many card slots will be available in game.")]
 	public int maxCardSlots = 12;
 	[Tooltip("How many card slots will be available for climate effects in game.")]
 	public int maxClimateEffects = 6;
 	[Tooltip("How many cards will the player start with.")]
 	public int startingHand;
+
 	[Header("Resources")]
 	// public Resource[] resources;
 	[SerializedDictionary("Resource Type", "Value")]
