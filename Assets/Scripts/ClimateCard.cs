@@ -10,6 +10,7 @@ public class ClimateCard : MonoBehaviour {
 	public Image cardImage;
 	public TextMeshProUGUI description;
 	public TextMeshProUGUI effectTimer;
+	public TextMeshProUGUI cardDamage;
 	public GameObject costSlot;
 	public int timer;
 
@@ -28,5 +29,6 @@ public class ClimateCard : MonoBehaviour {
 		cardImage.sprite = cardData.image;
 		description.SetText(cardData.description);
 		effectTimer.SetText(timer.ToString());
+		cardDamage.SetText(cardData.damage.ToString());
 	}
 }

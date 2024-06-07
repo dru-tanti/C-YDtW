@@ -4,13 +4,6 @@ using GlobalEnums;
 using UnityEngine.UI;
 using AYellowpaper.SerializedCollections;
 
-[System.Serializable]
-public class Tooltip {
-	public string header;
-	[TextArea]
-	public string body;
-}
-
 public class UIManager : MonoBehaviour {
 	private static UIManager current; // Declares it as a Singleton since we have a static function.
 	public GameState gameState;
@@ -27,6 +20,7 @@ public class UIManager : MonoBehaviour {
 
 	[Header("Game State UI")]
 	public Slider doomMeter;
+	public Slider turnMeter;
 	public TextMeshProUGUI energy;
 	public TextMeshProUGUI food;
 	public TextMeshProUGUI minerals;
@@ -49,6 +43,7 @@ public class UIManager : MonoBehaviour {
 		minerals.SetText(gameState.resources[ResourceType.Material].ToString());
 		science.SetText(gameState.resources[ResourceType.Science].ToString());
 		doomMeter.value = gameState.doomMeter;
+		turnMeter.value = gameState.turnCounter;
 	}
 
 	public void SetTooltipText(string header="", string body="") {

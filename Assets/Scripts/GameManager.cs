@@ -107,6 +107,11 @@ public class GameManager : MonoBehaviour {
 		if(climateCards.Count() < currentLevelSettings.maxClimateEffects) {
 			DrawClimateCard();
 		}
+
+		if(++gameState.turnCounter > currentLevelSettings.turnLimit) {
+			// End Game.
+		}
+
 		DrawCard();
 		updateUI.Invoke();
 		gameState.isPlayerTurn = true;
@@ -138,6 +143,7 @@ public class GameManager : MonoBehaviour {
 
 	public void TriggerClimateAction(ClimateCard climateCard) {
 		gameState.DecreaseResources(climateCard.cardData.cost);
+		gameState.doomMeter += climateCard.cardData.damage;
 		// Remove the card if it's no longer active.
 		if(--climateCard.timer <= 0) {
 			climateCards.Remove(climateCard);
