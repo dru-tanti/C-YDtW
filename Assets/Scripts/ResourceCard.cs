@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using AYellowpaper.SerializedCollections;
 
 public class ResourceCard : DraggableObject {
 	public ResourceCardData cardData;

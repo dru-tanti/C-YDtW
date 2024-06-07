@@ -2,8 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class ClimateCard : MonoBehaviour
-{
+public class ClimateCard : MonoBehaviour {
     public ClimateCardData cardData;
 	public ResourceIcons resourceIcons;
 
@@ -28,11 +27,6 @@ public class ClimateCard : MonoBehaviour
 		// Setting UI Elements
 		cardImage.sprite = cardData.image;
 		description.SetText(cardData.description);
-		effectTimer.SetText(timer.ToString());
-	}
-
-	public void DecreaseTimer() {
-		timer--;
 		effectTimer.SetText(timer.ToString());
 	}
 }
