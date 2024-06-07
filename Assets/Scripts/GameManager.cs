@@ -142,6 +142,8 @@ public class GameManager : MonoBehaviour {
 		if(--climateCard.timer <= 0) {
 			climateCards.Remove(climateCard);
 			Destroy(climateCard.gameObject);
+		} else {
+			climateCard.effectTimer.SetText(climateCard.timer.ToString());
 		}
 	}
 

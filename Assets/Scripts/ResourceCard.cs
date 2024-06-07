@@ -20,20 +20,21 @@ public class ResourceCard : DraggableObject {
 	public void InitCardData(ResourceCardData data) {
 		cardData = data;
 
-		// Initialising the Card Cost.
+		// Initialising the Resource Icons for the Cards Cost.
 		foreach(Resource resource in cardData.cost) {
 			GameObject resourceIcon = Instantiate(resourceIcons.icon[resource.type]);
 			resourceIcon.GetComponentInChildren<TextMeshProUGUI>().SetText(resource.value.ToString());
 			resourceIcon.transform.SetParent(costSlot.transform);
 		}
 
-		// Initialising the Card Production per turn.
+		// Initialising the Resource Icons for the Cards Production per turn.
 		foreach(Resource resource in cardData.production) {
 			GameObject resourceIcon = Instantiate(resourceIcons.icon[resource.type]);
 			resourceIcon.GetComponentInChildren<TextMeshProUGUI>().SetText(resource.value.ToString());
 			resourceIcon.transform.SetParent(productionSlot.transform);
 		}
 
+		// Setting UI Elements
 		cardImage.sprite = cardData.image;
 		description.SetText(cardData.description);
 	}
