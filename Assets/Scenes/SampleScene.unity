@@ -671,6 +671,7 @@ GameObject:
   m_Component:
   - component: {fileID: 317834615}
   - component: {fileID: 317834616}
+  - component: {fileID: 317834617}
   m_Layer: 5
   m_Name: Turn Meter
   m_TagString: Untagged
@@ -751,6 +752,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &317834617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317834614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c4e78d10df42914aadb3612437e305e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipName: Turn Meter
 --- !u!1 &317927714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,6 +1877,7 @@ GameObject:
   m_Component:
   - component: {fileID: 846342275}
   - component: {fileID: 846342276}
+  - component: {fileID: 846342277}
   m_Layer: 5
   m_Name: Doom Meter
   m_TagString: Untagged
@@ -1943,6 +1958,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &846342277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846342274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c4e78d10df42914aadb3612437e305e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipName: Doom Meter
 --- !u!1 &944707558
 GameObject:
   m_ObjectHideFlags: 0
@@ -4922,6 +4950,15 @@ MonoBehaviour:
   tooltipCharacterWrapLimit: 50
   tooltipManager:
     _serializedList:
+    - Key: Doom Meter
+      Value:
+        header: Doom Meter
+        body: The level of damage you are dealing to the planet. If the meter is
+          filled, the game ends.
+    - Key: Turn Meter
+      Value:
+        header: Turn Meter
+        body: The number of turns remaining until the game ends.
     - Key: Card Cost
       Value:
         header: Cost
