@@ -95,7 +95,9 @@ public class GameManager : MonoBehaviour {
 	public void EndPlayerTurn() {
 		gameState.isPlayerTurn = false;
 		// Handle the production of the cards that are in play.
-		inPlay.ForEach((card) => gameState.AddResources(card.cardData.production));
+		inPlay.ForEach((card) => {
+			gameState.AddResources(card.cardData.production);
+		});
 
 		/*
 			Iterate backwards through the list so that when a climate card expires,
@@ -142,7 +144,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void TriggerClimateAction(ClimateCard climateCard) {
-		gameState.DecreaseResources(climateCard.cardData.cost);
+		gameState.DecreaseResources(climateCard.cardData.costOnPlay);
 		gameState.doomMeter += climateCard.cardData.damage;
 		// Remove the card if it's no longer active.
 		if(--climateCard.timer <= 0) {

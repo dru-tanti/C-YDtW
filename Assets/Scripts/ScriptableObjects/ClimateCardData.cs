@@ -6,7 +6,10 @@ using AYellowpaper.SerializedCollections;
 public class ClimateCardData : ScriptableObject {
     public Sprite image;
     public string description;
-	public Resource[] cost;
+	public Resource[] costOnPlay;
+	public Resource[] costPerTurn;
+	[SerializedDictionary("Resource Type", "Below"), Tooltip("Cards that produce an amount below this value produce nothing.")]
+	public SerializedDictionary<ResourceType, int> preventProduction;
 	public int maxDuration;
 	public int damage;
 }

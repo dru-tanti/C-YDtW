@@ -19,7 +19,7 @@ public class ClimateCard : MonoBehaviour {
 		timer = cardData.maxDuration;
 
 		// Initialising Resource Icons.
-		foreach(Resource resource in cardData.cost) {
+		foreach(Resource resource in cardData.costOnPlay) {
 			GameObject resourceIcon = Instantiate(resourceIcons.icon[resource.type]);
 			resourceIcon.GetComponentInChildren<TextMeshProUGUI>().SetText(resource.value.ToString());
 			resourceIcon.transform.SetParent(costSlot.transform);
