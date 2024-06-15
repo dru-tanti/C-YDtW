@@ -7,6 +7,7 @@ using AYellowpaper.SerializedCollections;
 public class UIManager : MonoBehaviour {
 	private static UIManager current; // Declares it as a Singleton since we have a static function.
 	public GameState gameState;
+	public GameObject menu;
 
 	[Header("Tooltip Management")]
 	public GameObject tooltipObject;
@@ -77,5 +78,13 @@ public class UIManager : MonoBehaviour {
 
 	public static void HideTooltip() {
 		current.tooltipObject.SetActive(false);
+	}
+
+	public static void ShowMenu() {
+		current.menu.SetActive(true);
+	}
+
+	public static void HideMenu() {
+		current.menu.SetActive(false);
 	}
 }

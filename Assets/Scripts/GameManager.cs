@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
 	public GameState gameState;
 	public LevelSettings[] levelSettings;
 	private LevelSettings currentLevelSettings;
+	public GameObject pauseMenu;
 
 	[Header("Events")]
 	public UnityEvent updateUI;
@@ -92,6 +93,10 @@ public class GameManager : MonoBehaviour {
 		climateCards.Add(newCard);
 	}
 
+	public void EndGame() {
+		gameState.isPlayerTurn = false;
+	}
+
 	public void EndPlayerTurn() {
 		gameState.isPlayerTurn = false;
 		// Handle the production of the cards that are in play.
@@ -141,6 +146,11 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		return true;
+	}
+
+	public void OpenPauseMenu() {
+		gameState.isPlayerTurn = false;
+		pauseMenu.SetActive(true);
 	}
 
 	public void TriggerClimateAction(ClimateCard climateCard) {

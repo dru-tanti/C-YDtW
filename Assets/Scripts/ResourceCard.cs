@@ -8,6 +8,7 @@ public class ResourceCard : DraggableObject {
 	public ResourceCardData cardData;
 	public ResourceIcons resourceIcons;
 	public bool IsPlayable { get; set; } // Set by the Game Manager on card pickup.
+	public Resource[] production; // Will be used to track de/buffs
 
 	[Header("UI Elements")]
 	public Image cardImage;
@@ -18,6 +19,7 @@ public class ResourceCard : DraggableObject {
 
 	public void InitCardData(ResourceCardData data) {
 		cardData = data;
+		production = cardData.production;
 
 		// Initialising the Resource Icons for the Cards Cost.
 		foreach(Resource resource in cardData.cost) {
