@@ -9,6 +9,8 @@ public class DraggableObject : MonoBehaviour,  IBeginDragHandler, IDragHandler, 
 
     // Start is called before the first frame update
     void Start() {
+		// Used to lock the size of the card, regardless of screen size.
+		transform.localScale = new Vector3(1, 1, 1);
 		baseImage = gameObject.GetComponent<Image>();
     }
 

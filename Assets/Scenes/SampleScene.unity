@@ -1947,7 +1947,7 @@ MonoBehaviour:
   gameState: {fileID: 11400000, guid: 77717cf517910794f906be9ecdd98804, type: 2}
   levelSettings:
   - {fileID: 11400000, guid: e32c875dc762a8c46aa58a91fc39d9d2, type: 2}
-  pauseMenu: {fileID: 0}
+  pauseMenu: {fileID: 1274025332}
   updateUI:
     m_PersistentCalls:
       m_Calls:
@@ -5514,7 +5514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: 77717cf517910794f906be9ecdd98804, type: 2}
-  Menu: {fileID: 1274025332}
+  menu: {fileID: 0}
   tooltipObject: {fileID: 959990761}
   tooltipHeader: {fileID: 362465926}
   tooltipBody: {fileID: 1636149062}
@@ -5658,7 +5658,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1924990738}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 703560549}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: TogglePauseMenu
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1924990738
 MonoBehaviour:
   m_ObjectHideFlags: 0

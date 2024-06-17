@@ -148,9 +148,8 @@ public class GameManager : MonoBehaviour {
 		return true;
 	}
 
-	public void OpenPauseMenu() {
-		gameState.isPlayerTurn = false;
-		pauseMenu.SetActive(true);
+	public void TogglePauseMenu(bool toggle) {
+		pauseMenu.SetActive(toggle);
 	}
 
 	public void TriggerClimateAction(ClimateCard climateCard) {
